@@ -1,0 +1,2 @@
+rootProject.name='AgroSight'
+include ':app'
