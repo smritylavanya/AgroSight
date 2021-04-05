@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#57DF57</color>
+    <color name="colorPrimaryDark">#B1F6B1</color>
+    <color name="colorAccent">#7EEB7E</color>
 </resources>
+<!--<palette>-->
+<!--<url>http://paletton.com/#uid=12P0u0kjvGS92VleNOwnAzGsQuJ</url>-->
+<!--<colorset id="primary" title="Primary color">-->
+<!--    <color id="primary-0" nr="0" rgb="57DF57" r="87" g="223" b="87" r0="0.341" g0="0.875" b0="0.341"/>-->
+<!--    <color id="primary-1" nr="1" rgb="B1F6B1" r="177" g="246" b="177" r0="0.694" g0="0.965" b0="0.694"/>-->
+<!--    <color id="primary-2" nr="2" rgb="7EEB7E" r="126" g="235" b="126" r0="0.494" g0="0.922" b0="0.494"/>-->
+<!--    <color id="primary-3" nr="3" rgb="37D237" r="55" g="210" b="55" r0="0.216" g0="0.824" b0="0.216"/>-->
+<!--    <color id="primary-4" nr="4" rgb="13C413" r="19" g="196" b="19" r0="0.075" g0="0.769" b0="0.075"/>-->
+<!--</colorset>-->
+<!--</palette>-->
