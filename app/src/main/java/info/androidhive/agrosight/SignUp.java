@@ -31,6 +31,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -38,6 +39,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,8 +72,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkDataEntered();
-                String url = "http://192.168.213.181/user/register";
-                StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                StringRequest postRequest = new StringRequest(Request.Method.POST, Config.URLs.registerUrl,
                         new Response.Listener<String>()
                         {
 
@@ -127,11 +128,39 @@ public class SignUp extends AppCompatActivity {
                         {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                // error
-                                Log.d("Error.Response", error.toString());
-                                //show error on screen
-
-
+                                String body = "Error Not encoded";
+                                //get status code here
+                                System.out.println(error.toString());
+                                if (error instanceof TimeoutError){
+                                    //TODO:Network timeout error - SHOW ERROR AND RETURN
+                                    Log.d("Timeout Error", error.toString());
+                                    return;
+                                }
+                                int statusCode;
+                                try {
+                                    statusCode = error.networkResponse.statusCode;
+                                }catch (Exception e){
+                                    //TODO: Something went wrong with network - SHOW ERROR AND RETURN
+                                    e.printStackTrace();
+                                    return;
+                                }
+                                //get response body and parse with appropriate encoding
+                                if(error.networkResponse.data!=null) {
+                                    try {
+                                        JSONObject errorJson = new JSONObject(new String(error.networkResponse.data,"UTF-8"));
+                                        body = errorJson.toString(4);
+                                    } catch (UnsupportedEncodingException | JSONException e) {
+                                        e.printStackTrace();
+                                        //TODO: Malformed Response - SHOW ERROR AND RETURN
+                                        return;
+                                    }
+                                }
+                                Log.d("Volley Error Response",body);
+                                if (statusCode == 409){
+                                    //TODO: Duplicate entry for email - SHOW ERROR
+                                }else{
+                                    //TODO: Internal Server error - SHOW ERROR
+                                }
                             }
                         }
                 )
@@ -140,18 +169,17 @@ public class SignUp extends AppCompatActivity {
                     protected Map<String, String> getParams()
                     {
                         Map<String, String>  params = new HashMap<String, String>();
-                        params.put("first_name", first_name.getText().toString());
-                        params.put("last_name", last_name.getText().toString());
-                        params.put("phone_number", phone_number.getText().toString());
+                        params.put("fName", first_name.getText().toString());
+                        params.put("lName", last_name.getText().toString());
+                        params.put("phone", phone_number.getText().toString());
                         params.put("email", email.getText().toString());
                         params.put("password", password.getText().toString());
-
                         return params;
                     }
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         Map<String,String> params = new HashMap<String, String>();
-                        params.put("Content-Type","application/x-www-form-urlencoded");
+                        params.put("Content-Type","application/json");
                         return params;
                     }
                 };
