@@ -129,19 +129,22 @@ public class SignUp extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 String body = "Error Not encoded";
-                                //get status code here
                                 System.out.println(error.toString());
-                                if (error instanceof TimeoutError){
-                                    //TODO:Network timeout error - SHOW ERROR AND RETURN
-                                    Log.d("Timeout Error", error.toString());
-                                    return;
-                                }
+//                                if (error instanceof TimeoutError){
+//                                    //TODO:Network timeout error - SHOW ERROR AND RETURN
+//                                    Log.d("Timeout Error", error.toString());
+//                                    DialogBox exampleDialog = new DialogBox();
+//                                    exampleDialog.show(getSupportFragmentManager(), "example dialog");
+//                                    exampleDialog.createAlert( "Timeout Error");
+//                                    return;
+//                                }
                                 int statusCode;
                                 try {
+                                    //get status code here
                                     statusCode = error.networkResponse.statusCode;
                                 }catch (Exception e){
                                     //TODO: Something went wrong with network - SHOW ERROR AND RETURN
-                                    e.printStackTrace();
+                                    AlertBox.alertDialogShow(SignUp.this,"Something went wrong with the network");
                                     return;
                                 }
                                 //get response body and parse with appropriate encoding
@@ -152,14 +155,17 @@ public class SignUp extends AppCompatActivity {
                                     } catch (UnsupportedEncodingException | JSONException e) {
                                         e.printStackTrace();
                                         //TODO: Malformed Response - SHOW ERROR AND RETURN
+                                        AlertBox.alertDialogShow(SignUp.this,"Malformed Error");
                                         return;
                                     }
                                 }
                                 Log.d("Volley Error Response",body);
                                 if (statusCode == 409){
                                     //TODO: Duplicate entry for email - SHOW ERROR
+                                    AlertBox.alertDialogShow(SignUp.this,"Duplicate entry for E-mail");
                                 }else{
                                     //TODO: Internal Server error - SHOW ERROR
+                                    AlertBox.alertDialogShow(SignUp.this,"Internal Server Error");
                                 }
                             }
                         }
@@ -213,6 +219,7 @@ public class SignUp extends AppCompatActivity {
     public void openlogin()
     {
         Intent intent=new Intent(this,Login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
@@ -225,7 +232,6 @@ public class SignUp extends AppCompatActivity {
             {
                 Intent intent = new Intent(SignUp.this, Login.class);
                 startActivity(intent);
-
             }
         });
     }
