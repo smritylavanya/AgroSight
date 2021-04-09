@@ -3,6 +3,9 @@
     <color name="colorPrimary">#57DF57</color>
     <color name="colorPrimaryDark">#B1F6B1</color>
     <color name="colorAccent">#7EEB7E</color>
+    <color name="colorLoading">#F4A403</color>
+    <color name="errorColor">#FF4343</color>
+
 </resources>
 <!--<palette>-->
 <!--<url>http://paletton.com/#uid=12P0u0kjvGS92VleNOwnAzGsQuJ</url>-->
