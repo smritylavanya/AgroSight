@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/Q_A"
+
+        android:title="QA"></item>
+    <item android:id="@+id/My_Question"
+
+        android:title="My Question"></item>
+    <item android:id="@+id/Others"
+
+        android:title="Others Question"></item>
+
+
+</menu>
