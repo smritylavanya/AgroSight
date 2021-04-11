@@ -34,16 +34,11 @@ public class MainActivity extends AppCompatActivity
     }
     public void openLogin()
     {
-
-
                 Intent intent = new Intent(MainActivity.this, Login.class);
                 startActivity(intent);
-
     }
     public void opensignup()
     {
-
-
                 Intent intent = new Intent(MainActivity.this, SignUp.class);
                 startActivity(intent);
     }

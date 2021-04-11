@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
                     break;
 
             }
-             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentcontainer,selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentcontainer,selectedFragment).commit();
             return true;
         }
 
