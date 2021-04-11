@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostQuestionActivity">
+    tools:context=".PostQuestionActivity"
+    >
     <ScrollView
         android:id="@+id/ScrollView01"
         android:layout_width="match_parent"
@@ -22,23 +23,26 @@
                 android:theme="@style/MyMaterialTheme"
                 android:layout_margin="8dp"
                 android:contentDescription="Add a question"
-                android:text="Post"
+                android:text="ADD"
+                android:textColor="#ffffff"
+                android:textAlignment="center"
                 android:backgroundTint="@color/colorAccent"
                 app:icon="@drawable/plus"
+                app:iconTint="#ffffff"
                 android:layout_gravity="top|right"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/titletext"
-                android:text="Title"
+                android:id="@+id/username"
+                android:text="Username"
                 android:textColor="#13C413"
-                android:textSize="25dp"
+                android:textSize="15dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
-
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 />
+
             <EditText
                 android:id="@+id/title"
                 android:layout_width="match_parent"
@@ -47,9 +51,8 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:background="@drawable/edit_text_border"
                 android:drawablePadding="10dp"
-                android:hint="Title"
+                android:hint="Add Title"
                 android:inputType="text"
                 android:textSize="16sp"
                 android:padding="15dp"
@@ -60,29 +63,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titletext"
                 app:layout_constraintVertical_bias="0.0" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/descriptiontext"
-                android:text="Description"
-                android:textColor="#13C413"
-                android:textSize="25dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                />
-
             <EditText
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
-                android:background="@drawable/edit_text_border"
                 android:drawablePadding="10dp"
-                android:hint="Description"
+                android:hint="Start your question with What, Why, How, etc."
                 android:inputType="textMultiLine"
                 android:padding="15dp"
                 android:textColorHint="#707070"
@@ -98,23 +86,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tagstext"
-                android:text="Add Tags"
-                android:textColor="#13C413"
-                android:textSize="25dp"
+                android:text="Include tags that gives context"
+                android:textColor="#000000"
+                android:textSize="15dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 />
-
             <EditText
                 android:id="@+id/tags"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
-                android:background="@drawable/edit_text_border"
                 android:drawablePadding="10dp"
                 android:hint="#disease #crops"
                 android:inputType="textMultiLine"
@@ -128,13 +114,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/tagstext"
                 app:layout_constraintVertical_bias="0.0"
                 />
+
+            <TextView
+                android:id="@+id/txtStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_insert_link_black_24dp"
+                android:drawablePadding="3dp"
+                android:maxLines="1"
+                android:text="Optional: include a link that might help" />
+
             <Button
                 android:id="@+id/Uploadimage"
-                android:layout_width="211dp"
-                android:layout_height="44dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="68dp"
                 android:background="@drawable/login_border"
+                android:drawableLeft="@drawable/ic_insert_link_black_24dp"
                 android:text="Upload Images"
+                android:drawableTint="#ffffff"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffffff"
                 android:textStyle="bold"
