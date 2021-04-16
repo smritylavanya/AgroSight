@@ -16,13 +16,13 @@ public class User {
         sharedPreferences = context.getSharedPreferences("userinfo",Context.MODE_PRIVATE);
     }
 
-    public String getToken() {
+    public  String getToken() {
         token = sharedPreferences.getString("token","");
         return token;
     }
 
     public void setToken(String token) {
-        sharedPreferences.edit().putString("token",email).commit();
+        sharedPreferences.edit().putString("token",token).commit();
         this.token = token;
     }
 
@@ -32,7 +32,7 @@ public class User {
     }
 
     public void setUserId(String userId) {
-        sharedPreferences.edit().putString("userId",email).commit();
+        sharedPreferences.edit().putString("userId",userId).commit();
         this.userId = userId;
     }
 
@@ -42,7 +42,7 @@ public class User {
     }
 
     public void setfName(String fName) {
-        sharedPreferences.edit().putString("fName",email).commit();
+        sharedPreferences.edit().putString("fName",fName).commit();
         this.fName = fName;
     }
 
@@ -52,7 +52,7 @@ public class User {
     }
 
     public void setlName(String lName) {
-        sharedPreferences.edit().putString("lName",email).commit();
+        sharedPreferences.edit().putString("lName",lName).commit();
         this.lName = lName;
     }
 
@@ -72,7 +72,7 @@ public class User {
     }
 
     public void setPhone(String phone) {
-        sharedPreferences.edit().putString("phone",email).commit();
+        sharedPreferences.edit().putString("phone",phone).commit();
         this.phone = phone;
     }
 
