@@ -18,7 +18,7 @@ public class User {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public String getToken() {
+    public  String getToken() {
         token = sharedPreferences.getString("token","");
         return token;
     }

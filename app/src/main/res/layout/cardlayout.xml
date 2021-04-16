@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6dp"
+    android:elevation="6dp"
+    android:layout_margin="6dp"
+    android:background="@android:color/holo_blue_dark"
+    android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="20dp"
+                android:id="@+id/title"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="0dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Firstname"
+                    android:layout_weight="1"
+                    android:id="@+id/firstname"
+                    android:textSize="10dp"
+                    android:gravity="right"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LastName"
+                    android:layout_weight="1"
+                    android:textSize="10dp"
+                    android:gravity="right"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/lastname"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+            <!-- Title, secondary and supporting text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question"
+                android:textSize="15dp"
+                android:id="@+id/question"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+
+
+        </LinearLayout>
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:alpha="0.7">
+
+           <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/upvote"
+               android:id="@+id/upvote_image"
+               />
+            <TextView
+                android:id="@+id/uptext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/upvote_imageimage"
+                android:layout_marginTop="5dp"
+                android:text="2"
+                android:textSize="8dp"
+                android:textColor="@color/colorPrimary"
+                 />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/downvotw"
+                android:id="@+id/down_image"
+                android:layout_marginLeft="10dp"
+                />
+            <TextView
+                android:id="@+id/downtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/down_image"
+                android:layout_marginTop="5dp"
+                android:text="10"
+                android:textSize="8dp"
+                android:textColor="@color/errorColor"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView >
