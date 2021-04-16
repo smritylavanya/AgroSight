@@ -1,6 +1,8 @@
 package info.androidhive.agrosight;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 public class User {
     SharedPreferences sharedPreferences;
     Context context;
@@ -13,7 +15,7 @@ public class User {
 
     public User(Context context) {
         this.context = context;
-        sharedPreferences = context.getSharedPreferences("userinfo",Context.MODE_PRIVATE);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public  String getToken() {
@@ -22,7 +24,7 @@ public class User {
     }
 
     public void setToken(String token) {
-        sharedPreferences.edit().putString("token",token).commit();
+        sharedPreferences.edit().putString("token",token).apply();
         this.token = token;
     }
 
@@ -32,7 +34,7 @@ public class User {
     }
 
     public void setUserId(String userId) {
-        sharedPreferences.edit().putString("userId",userId).commit();
+        sharedPreferences.edit().putString("userId",userId).apply();
         this.userId = userId;
     }
 
@@ -42,7 +44,7 @@ public class User {
     }
 
     public void setfName(String fName) {
-        sharedPreferences.edit().putString("fName",fName).commit();
+        sharedPreferences.edit().putString("fName",fName).apply();
         this.fName = fName;
     }
 
@@ -52,7 +54,7 @@ public class User {
     }
 
     public void setlName(String lName) {
-        sharedPreferences.edit().putString("lName",lName).commit();
+        sharedPreferences.edit().putString("lName",lName).apply();
         this.lName = lName;
     }
 
@@ -62,7 +64,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        sharedPreferences.edit().putString("email",email).commit();
+        sharedPreferences.edit().putString("email",email).apply();
         this.email = email;
     }
 
@@ -72,7 +74,7 @@ public class User {
     }
 
     public void setPhone(String phone) {
-        sharedPreferences.edit().putString("phone",phone).commit();
+        sharedPreferences.edit().putString("phone",phone).apply();
         this.phone = phone;
     }
 

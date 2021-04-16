@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
         <activity android:name=".AnswerActivity"></activity>
         <activity
@@ -19,18 +20,16 @@
         <activity
             android:name=".PostQuestionActivity"
             android:theme="@style/MyMaterialTheme"></activity>
-        <activity android:name=".HomeActivity">
-
-        </activity>
+        <activity android:name=".HomeActivity"/>
         <activity android:name=".SignUp" />
-        <activity android:name=".Login" >
-        <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-
-        <category android:name="android.intent.category.LAUNCHER" />
-    </intent-filter>
+        <activity android:name=".Login" />
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Login"/>
     </application>
 
 </manifest>

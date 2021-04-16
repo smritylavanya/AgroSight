@@ -2,10 +2,12 @@ package info.androidhive.agrosight;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -46,6 +48,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validate()){
+                    try {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
                     login();
                 }
             }
@@ -54,6 +62,7 @@ public class Login extends AppCompatActivity {
 
     public void login(){
         showLoading();
+
         StringRequest postRequest = new StringRequest(Request.Method.POST, Config.URLs.loginUrl,
                 new Response.Listener<String>()
                 {

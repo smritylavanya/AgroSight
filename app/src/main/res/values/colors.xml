@@ -7,6 +7,8 @@
     <color name="colorLight">#7EEB7E</color>
     <color name="colorLoading">#F4A403</color>
     <color name="errorColor">#FF4343</color>
+    <color name="hintColor">#707070</color>
+    <color name="offWhite">#BDBDBD</color>
 
 
 </resources>

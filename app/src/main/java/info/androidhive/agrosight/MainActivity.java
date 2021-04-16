@@ -31,6 +31,13 @@ public class MainActivity extends AppCompatActivity
                 opensignup();
             }
         });
+        User user = new User(this);
+        System.out.println(user.getToken());
+        if (!user.getToken().equals("")){
+            Intent i = new Intent(this, HomeActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }
     }
     public void openLogin()
     {
@@ -42,4 +49,5 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, SignUp.class);
                 startActivity(intent);
     }
+
 }
