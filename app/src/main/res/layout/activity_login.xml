@@ -8,12 +8,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="203dp"
+            android:layout_width="match_parent"
             android:layout_height="57dp"
-            android:text="AgroSight"
+            android:text="LOGIN"
             android:textAlignment="center"
            android:textColor="#13C413"
             android:textSize="34dp"

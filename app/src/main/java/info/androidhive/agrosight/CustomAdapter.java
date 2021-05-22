@@ -13,30 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     private Context mContext;
-
     private String[] mquestion;
     private String[] mFirstName;
     private String[] mLastName;
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView question;
-        TextView firstname;
-        TextView lastname;
 
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            this.question = (TextView) itemView.findViewById(R.id.question);
-            this.firstname = (TextView) itemView.findViewById(R.id.firstname);
-            this.lastname = (TextView) itemView.findViewById(R.id.lastname);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    itemView.getContext().startActivity(new Intent(itemView.getContext(), AnswerActivity.class));
-                }
-            });
-
-        }
-    }
-    public CustomAdapter(Context mContext, String[] question,String[] firstname,String[] lastname) {
+    CustomAdapter(Context mContext, String[] question,String[] firstname,String[] lastname) {
         this.mContext = mContext;
         this.mquestion = question;
         this.mFirstName = firstname;
@@ -57,7 +38,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
     @Override
     public int getItemCount() {
-
         return mquestion.length;
+    }
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView question;
+        TextView firstname;
+        TextView lastname;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            this.question = itemView.findViewById(R.id.question);
+            this.firstname =  itemView.findViewById(R.id.firstname);
+            this.lastname =  itemView.findViewById(R.id.lastname);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemView.getContext().startActivity(new Intent(itemView.getContext(), AnswerActivity.class));
+                }
+            });
+
+        }
     }
 }

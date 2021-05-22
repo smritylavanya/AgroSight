@@ -13,13 +13,13 @@
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AnswerActivity"></activity>
+        <activity android:name=".AnswerActivity"/>
         <activity
             android:name=".UploadImages"
-            android:theme="@style/MyMaterialTheme"></activity>
+            android:theme="@style/MyMaterialTheme"/>
         <activity
             android:name=".PostQuestionActivity"
-            android:theme="@style/MyMaterialTheme"></activity>
+            android:theme="@style/MyMaterialTheme"/>
         <activity android:name=".HomeActivity"/>
         <activity android:name=".SignUp" />
         <activity android:name=".Login" />
@@ -29,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"/>
     </application>
 
 </manifest>

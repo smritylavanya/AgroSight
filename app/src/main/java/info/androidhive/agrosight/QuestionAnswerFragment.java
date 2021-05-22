@@ -2,6 +2,11 @@ package info.androidhive.agrosight;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -16,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +36,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -41,6 +49,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import info.androidhive.fontawesome.FontDrawable;
+
 public class QuestionAnswerFragment extends Fragment {
     RecyclerView rv;
     //CustomAdapter ad;
@@ -48,8 +58,8 @@ public class QuestionAnswerFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     public int page=1;
     FrameLayout progressLayout;
+    MaterialToolbar toolbar;
     boolean hasdata=true;
-    private String url = "http://10.0.2.2:5000/qa/get-paged-questions/";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +68,16 @@ public class QuestionAnswerFragment extends Fragment {
         questionsList=new ArrayList<>();
         adapter = new QuestionAdapter(getActivity().getApplicationContext(),questionsList);
         progressLayout=view.findViewById(R.id.progress_overlay);
+        toolbar = view.findViewById(R.id.qa_frag_toolbar);
+        FontDrawable navDraw = new FontDrawable(getActivity(),R.string.fa_user_circle,true, true);
+        navDraw.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.darker_gray));
+        navDraw.setTextSize(35);
+        toolbar.setNavigationIcon(navDraw);
+        Drawable logo = ResourcesCompat.getDrawable(getResources(),R.drawable.logo_png, getActivity().getTheme());
+//        toolbar.setLogo(logo);
 
+
+//        toolbar.logo
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +91,7 @@ public class QuestionAnswerFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
         rv.setAdapter(adapter);
-        getData(url,1);
+        getData(1);
 
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -81,7 +100,7 @@ public class QuestionAnswerFragment extends Fragment {
                 if ((!recyclerView.canScrollVertically(1))&& hasdata == true)
                 {
                     page=page+1;
-                    getData(url,page);
+                    getData(page);
                 }
 
             }
@@ -94,14 +113,14 @@ public class QuestionAnswerFragment extends Fragment {
         Intent intent = new Intent(getActivity(), PostQuestionActivity.class);
         startActivity(intent);
     }
-    private void getData(String url, int pnumber)
+    private void getData(int pnumber)
     {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
 //        progressDialog.setMessage("Loading...");
 //        progressDialog.show();
         showLoading();
 
-        StringRequest jsonArrayRequest = new StringRequest(url+pnumber, new Response.Listener<String>() {
+        StringRequest jsonArrayRequest = new StringRequest(Config.URLs.fetchQuestionsUrl+pnumber, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                     try {
@@ -156,6 +175,13 @@ public class QuestionAnswerFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(jsonArrayRequest);
 
+    }
+    static Drawable resize(Drawable image, double scaleFactor) {
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        int dstW = (int)(b.getWidth()/scaleFactor);
+        int dstH = (int)(b.getHeight()/scaleFactor);
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, dstH, dstW, false);
+        return new BitmapDrawable(Resources.getSystem(), bitmapResized);
     }
     void showLoading(){
         progressLayout.setVisibility(View.VISIBLE);
