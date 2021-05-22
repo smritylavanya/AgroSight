@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/Q_A"
+    <item
+        android:id="@+id/Q_A"
+        android:icon="@drawable/qa_icon"
+        android:title="QA"/>
 
-        android:title="QA"></item>
-    <item android:id="@+id/My_Question"
+    <item
+        android:id="@+id/My_Question"
+        android:icon="@drawable/my_question_icon"
+        android:title="My Question"/>
 
-        android:title="My Question"></item>
-    <item android:id="@+id/Others"
-
-        android:title="Others Question"></item>
+    <item
+        android:id="@+id/Others"
+        android:icon="@drawable/others_icon"
+        android:title="Others"/>
 
 
 </menu>
