@@ -10,5 +10,6 @@ public class Config {
         static String PostQuestion =prefix+domain+"/qa/add-question";
         static String registerUrl = prefix+domain+"/user/register";
         static String fetchQuestionsUrl = prefix+domain+"/qa/get-paged-questions/";
+        static String chatSocketUrl = prefix+domain+"/chat";
     }
 }

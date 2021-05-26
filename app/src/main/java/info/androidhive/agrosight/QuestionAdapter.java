@@ -37,7 +37,16 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         holder.last.setText(que.getLastname());
         holder.up.setText(String.valueOf(que.getUpvote()));
         holder.down.setText(String.valueOf(que.getDownvote()));
-
+        holder.itView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), AnswerActivity.class);
+                i.putExtra("id", que.getId());
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                view.getContext().startActivity(i);
+//                    itemView.getContext().startActivity(new Intent(itemView.getContext(), AnswerActivity.class));
+            }
+        });
     }
 
     @Override
@@ -47,7 +56,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView Title, ques, first, last,up,down;
-
+        View itView;
         public ViewHolder(View itemView) {
             super(itemView);
             Title=itemView.findViewById(R.id.title);
@@ -56,12 +65,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             last = itemView.findViewById(R.id.lastname);
             up=itemView.findViewById(R.id.uptext);
             down=itemView.findViewById(R.id.downtext);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    itemView.getContext().startActivity(new Intent(itemView.getContext(), AnswerActivity.class));
-                }
-            });
+            itView = itemView;
         }
     }
 }
