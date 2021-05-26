@@ -19,25 +19,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/qa_frag_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="1dp"
             android:gravity="center_horizontal"
-            app:titleCentered="true"
             app:menu="@menu/qa_frag_menu"
 
-            android:elevation="1dp">
+            app:titleCentered="true">
+
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
+
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="50dp"
-                    android:padding="5dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/logo_png"/>
+                    android:padding="5dp"
+                    android:src="@drawable/logo_png" />
             </FrameLayout>
         </com.google.android.material.appbar.MaterialToolbar>
         <androidx.recyclerview.widget.RecyclerView

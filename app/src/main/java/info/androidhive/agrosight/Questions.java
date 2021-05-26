@@ -42,6 +42,14 @@ public class Questions {
         this.upvote = upvote;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getDownvote() {
         return downvote;
     }
@@ -55,10 +63,10 @@ public class Questions {
     public String lastname;
     public int upvote;
     public int downvote;
-    public Questions() {
+    public int id;
 
-    }
-    public Questions(String title,String question,String firstname,String lastname, int upvote, int downvote) {
+    public Questions(int id, String title,String question,String firstname,String lastname, int upvote, int downvote) {
+        this.id = id;
         this.title=title;
         this.question = question;
         this.firstname = firstname;

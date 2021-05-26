@@ -130,6 +130,7 @@ public class QuestionAnswerFragment extends Fragment {
 
                             JSONObject ob = data.getJSONObject(i);
                             Questions quee = new Questions(
+                                    ob.getInt("id"),
                                     ob.getString("title"),
                                     ob.getString("question"),
                             ob.getString("f_name"),
