@@ -102,7 +102,6 @@ public class QuestionAnswerFragment extends Fragment {
                     page=page+1;
                     getData(page);
                 }
-
             }
         });
 
@@ -172,10 +171,8 @@ public class QuestionAnswerFragment extends Fragment {
         return headers;
     }
     };
-
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(jsonArrayRequest);
-
     }
     static Drawable resize(Drawable image, double scaleFactor) {
         Bitmap b = ((BitmapDrawable)image).getBitmap();
