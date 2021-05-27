@@ -11,6 +11,7 @@ android {
 
     defaultConfig {
         applicationId "info.androidhive.agrosight"
+        multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
@@ -76,6 +77,6 @@ dependencies {
 
     //chat ui
     implementation 'com.github.stfalcon-studio:Chatkit:0.4.1'
-
+    implementation 'com.android.support:multidex:1.0.3'
 
 }
