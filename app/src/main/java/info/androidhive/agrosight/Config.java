@@ -11,5 +11,8 @@ public class Config {
         static String registerUrl = prefix+domain+"/user/register";
         static String fetchQuestionsUrl = prefix+domain+"/qa/get-paged-questions/";
         static String chatSocketUrl = prefix+domain+"/chat";
+        static String getDialogMetaDataUrl = prefix+domain+"/chat/get-dialogs-metadata";
+        static String getDialogUrl = prefix+domain+"/chat/get-dialog";
+
     }
 }

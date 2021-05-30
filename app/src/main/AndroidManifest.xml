@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MessagesHome"></activity>
+        <activity android:name=".MessagesHome"/>
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".AnswerActivity" />
         <activity
             android:name=".UploadImages"
