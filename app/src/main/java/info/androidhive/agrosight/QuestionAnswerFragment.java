@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -69,6 +70,23 @@ public class QuestionAnswerFragment extends Fragment {
         adapter = new QuestionAdapter(getActivity().getApplicationContext(),questionsList);
         progressLayout=view.findViewById(R.id.progress_overlay);
         toolbar = view.findViewById(R.id.qa_frag_toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId()==R.id.chat){
+                    Intent i = new Intent(getContext(), MessagesHome.class);
+                    startActivity(i);
+                }
+                return false;
+            }
+        });
         FontDrawable navDraw = new FontDrawable(getActivity(),R.string.fa_user_circle,true, true);
         navDraw.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.darker_gray));
         navDraw.setTextSize(35);
@@ -156,7 +174,6 @@ public class QuestionAnswerFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.e("Volley", error.toString());
                 hasdata=false;
-                Toast.makeText(getContext(),"You have reached the Last limit",Toast.LENGTH_SHORT).show();
 //                progressDialog.dismiss();
                 hideLoading();
             }
