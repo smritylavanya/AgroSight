@@ -20,9 +20,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.tapadoo.alerter.Alerter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,10 +40,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
@@ -48,14 +57,17 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
     private int IMAGE_REQUEST_ID = 1;
     private MessageAdapter messageAdapter;
     TextView typing;
+    TextView chatRecName;
+    MaterialToolbar toolbar;
     private int recId;
     LottieAnimationView typingAnimation;
     User user;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        name = getIntent().getStringExtra("name");
         user = new User(this);
         recId = getIntent().getIntExtra("to_id",-1);
         name = getIntent().getStringExtra("name");
@@ -118,7 +130,8 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
                         return;
                     }
                     JSONObject compObj = new JSONObject();
-                    if (jsonObject.get("type")=="image"){
+                    if (jsonObject.getString("type").equals("image")){
+                        compObj.put("isNew", true);
                         compObj.put("name", name);
                         compObj.put("image", jsonObject.get("data"));
                     }else{
@@ -135,79 +148,50 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         });
     }
 
-    private class SocketListener extends WebSocketListener {
-
-        @Override
-        public void onOpen(WebSocket webSocket, Response response) {
-            super.onOpen(webSocket, response);
-
-            runOnUiThread(() -> {
-                Toast.makeText(ChatActivity.this,
-                        "Socket Connection Successful!",
-                        Toast.LENGTH_SHORT).show();
-                initializeView();
-            });
-
-        }
-
-        @Override
-        public void onMessage(WebSocket webSocket, String text) {
-            super.onMessage(webSocket, text);
-            runOnUiThread(() -> {
-                try {
-                    JSONObject jsonObject = new JSONObject(text);
-                    jsonObject.put("isSent", false);
-                    messageAdapter.addItem(jsonObject);
-                    recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-    }
-
     private void initializeView() {
         typingAnimation = findViewById(R.id.typingAnimation);
         messageEdit = findViewById(R.id.messageEdit);
         sendBtn = findViewById(R.id.sendBtn);
         pickImgBtn = findViewById(R.id.pickImgBtn);
-
+        chatRecName = findViewById(R.id.chatRecName);
         recyclerView = findViewById(R.id.recyclerView);
 
         messageAdapter = new MessageAdapter(ChatActivity.this, getLayoutInflater());
         recyclerView.setAdapter(messageAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
+        chatRecName.setText(name);
         messageEdit.addTextChangedListener(this);
 
-        sendBtn.setOnClickListener(v -> {
-
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("name", name);
-                jsonObject.put("message", messageEdit.getText().toString());
-                webSocket.emit("message",messageEdit.getText().toString(), "text");
-                jsonObject.put("isSent", true);
-                messageAdapter.addItem(jsonObject);
-                recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
-                resetMessageEdit();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("name", name);
+                    jsonObject.put("message", messageEdit.getText().toString());
+                    webSocket.emit("message",messageEdit.getText().toString(), "text");
+                    System.out.println("message emitted");
+                    jsonObject.put("isSent", true);
+                    messageAdapter.addItem(jsonObject);
+                    recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
+                    resetMessageEdit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-
         });
 
-        pickImgBtn.setOnClickListener(v -> {
+        pickImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
 
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*");
-
-            startActivityForResult(Intent.createChooser(intent, "Pick image"),
-                    IMAGE_REQUEST_ID);
-
+                startActivityForResult(Intent.createChooser(intent, "Pick image"),
+                        IMAGE_REQUEST_ID);
+            }
         });
+        loadOldMessages();
 
     }
 
@@ -249,6 +233,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
             webSocket.emit("message", base64String, "image");
 
             jsonObject.put("isSent", true);
+            jsonObject.put("isNew", true);
             messageAdapter.addItem(jsonObject);
             recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
 
@@ -256,5 +241,74 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        webSocket.close();
+    }
+
+    void loadOldMessages(){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,Config.URLs.getAllMessagesUrl+recId, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject resJson = new JSONObject(response);
+                    JSONArray resArr = resJson.getJSONArray("data");
+                    for (int i = 0; i<resArr.length(); i++){
+                        JSONObject jsonObject = resArr.getJSONObject(i);
+                        if(!jsonObject.getString("from_id").equals(user.getUserId())){
+                            JSONObject compObj = new JSONObject();
+                            if (jsonObject.getString("type").equals("image")){
+                                compObj.put("name", name);
+                                compObj.put("image", jsonObject.get("data"));
+                            }else{
+                                compObj.put("name", name);
+                                compObj.put("message", jsonObject.get("data"));
+                            }
+                            compObj.put("isSent", false);
+                            messageAdapter.addItem(compObj);
+                        }else{
+                            JSONObject compObj = new JSONObject();
+                            if (jsonObject.getString("type").equals("image")){
+                                compObj.put("isNew", false);
+                                compObj.put("name", user.getfName());
+                                compObj.put("image", jsonObject.get("data"));
+                            }else{
+                                compObj.put("name", user.getfName());
+                                compObj.put("message", jsonObject.get("data"));
+                            }
+                            compObj.put("isSent", true);
+                            messageAdapter.addItem(compObj);
+                        }
+                    }
+                    recyclerView.scrollToPosition(messageAdapter.getItemCount() - 1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse networkResponse = error.networkResponse;
+                if (networkResponse.statusCode != 404){
+                    Alerter.create(ChatActivity.this)
+                            .setTitle("Error")
+                            .setText("Unable To load previous messages!")
+                            .setIcon(R.drawable.ic_baseline_error_outline_24)
+                            .setBackgroundColorRes(R.color.errorColor)
+                            .show();
+                }
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer "+user.getToken());
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(getBaseContext()).addToRequestQueue(stringRequest);
     }
 }

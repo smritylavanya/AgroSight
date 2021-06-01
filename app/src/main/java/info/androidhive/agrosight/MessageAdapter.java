@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,10 +77,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
         public ReceivedImageHolder(@NonNull View itemView) {
             super(itemView);
-
             imageView = itemView.findViewById(R.id.imageView);
             nameTxt = itemView.findViewById(R.id.nameTxt);
-
         }
     }
 
@@ -149,16 +149,23 @@ public class MessageAdapter extends RecyclerView.Adapter {
             if (message.getBoolean("isSent")) {
 
                 if (message.has("message")) {
-
                     SentMessageHolder messageHolder = (SentMessageHolder) holder;
                     messageHolder.messageTxt.setText(message.getString("message"));
 
                 } else {
-
-                    SentImageHolder imageHolder = (SentImageHolder) holder;
-                    Bitmap bitmap = getBitmapFromString(message.getString("image"));
-
-                    imageHolder.imageView.setImageBitmap(bitmap);
+                    if(message.getBoolean("isNew")){
+                        SentImageHolder imageHolder = (SentImageHolder) holder;
+                        Bitmap bitmap = getBitmapFromString(message.getString("image"));
+                        imageHolder.imageView.getLayoutParams().height = 1000;
+                        imageHolder.imageView.getLayoutParams().width = 800;
+                        imageHolder.imageView.setImageBitmap(bitmap);
+                    }else{
+                        SentImageHolder imageHolder = (SentImageHolder) holder;
+                        imageHolder.imageView.getLayoutParams().height = 1000;
+                        imageHolder.imageView.getLayoutParams().width = 800;
+                        System.out.println(Config.URLs.imagePrefix+message.getString("image"));
+                        Picasso.get().load(Config.URLs.imagePrefix+message.getString("image")).into(imageHolder.imageView);
+                    }
 
                 }
 
@@ -168,17 +175,14 @@ public class MessageAdapter extends RecyclerView.Adapter {
                     ReceivedMessageHolder messageHolder = (ReceivedMessageHolder) holder;
                     messageHolder.nameTxt.setText(message.getString("name"));
                     messageHolder.messageTxt.setText(message.getString("message"));
-
                 } else {
-
                     ReceivedImageHolder imageHolder = (ReceivedImageHolder) holder;
                     imageHolder.nameTxt.setText(message.getString("name"));
-
-                    Bitmap bitmap = getBitmapFromString(message.getString("image"));
-                    imageHolder.imageView.setImageBitmap(bitmap);
-
+                    imageHolder.imageView.getLayoutParams().height = 1000;
+                    imageHolder.imageView.getLayoutParams().width = 800;
+                    System.out.println(Config.URLs.imagePrefix+message.getString("image"));
+                    Picasso.get().load(Config.URLs.imagePrefix+message.getString("image")).into(imageHolder.imageView);
                 }
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -187,7 +191,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
     }
 
     private Bitmap getBitmapFromString(String image) {
-
         byte[] bytes = Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }

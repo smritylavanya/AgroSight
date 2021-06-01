@@ -1,6 +1,7 @@
 package info.androidhive.agrosight;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         login = (Button) findViewById(R.id.login1);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         }
-
     }
     public void openLogin()
     {

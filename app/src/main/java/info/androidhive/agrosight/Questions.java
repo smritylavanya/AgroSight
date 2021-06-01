@@ -64,8 +64,9 @@ public class Questions {
     public int upvote;
     public int downvote;
     public int id;
+    public int uId;
 
-    public Questions(int id, String title,String question,String firstname,String lastname, int upvote, int downvote) {
+    public Questions(int id, String title,String question,String firstname,String lastname, int upvote, int downvote, int u_id) {
         this.id = id;
         this.title=title;
         this.question = question;
@@ -73,6 +74,7 @@ public class Questions {
         this.lastname = lastname;
         this.upvote= upvote;
         this.downvote = downvote;
+        this.uId = u_id;
     }
 
 }

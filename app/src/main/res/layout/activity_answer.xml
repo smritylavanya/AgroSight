@@ -1,215 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
+        android:orientation="vertical">
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/qa_frag_toolbar"
+            android:id="@+id/AnswerActivityToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="1dp"
             android:gravity="center_horizontal"
-            app:menu="@menu/qa_frag_menu"
-
+            app:title="Q/A"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             app:titleCentered="true">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="5dp"
-                    android:src="@drawable/logo_png" />
-            </FrameLayout>
         </com.google.android.material.appbar.MaterialToolbar>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card"
-            android:layout_gravity="center"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            app:cardCornerRadius="14dp">
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <LinearLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card"
+                    android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Title"
-                        android:textSize="20dp"
-                        android:id="@+id/title"
-                        android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    app:cardCornerRadius="14dp">
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="0dp">
-                        <TextView
+                        android:padding="10dp"
+                        android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Title"
+                                android:textSize="20dp"
+                                android:id="@+id/qTitle"
+                                android:paddingTop="5dp"
+                                android:textAppearance="?attr/textAppearanceHeadline6" />
+                            <TextView
+                                android:id="@+id/qFullName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="5dp"
+                                android:textSize="12sp"
+                                android:text="By - Full Name"
+                                />
+
+                            <TextView
+                                android:id="@+id/qDesc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="5dp"
+                                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                                android:textAppearance="?attr/textAppearanceHeadline6"
+                                android:textSize="15dp" />
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:paddingVertical="5dp"
+                                android:orientation="horizontal">
+                                <ImageView
+                                    android:id="@+id/img1"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_marginHorizontal="5dp"
+                                    android:src="@drawable/ic_user"/>
+                                <ImageView
+                                    android:id="@+id/img2"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_marginHorizontal="5dp"
+                                    android:src="@drawable/ic_user"/>
+                                <ImageView
+                                    android:id="@+id/img3"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_marginHorizontal="5dp"
+                                    android:src="@drawable/ic_user"/>
+                                <ImageView
+                                    android:id="@+id/img4"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_marginHorizontal="5dp"
+                                    android:src="@drawable/ic_user"/>
+                                <ImageView
+                                    android:id="@+id/img5"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_marginHorizontal="5dp"
+                                    android:src="@drawable/ic_user"/>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+                        <!--                 Buttons -->
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Firstname"
-                            android:layout_weight="1"
-                            android:id="@+id/firstname"
-                            android:textSize="10dp"
-                            android:gravity="right"
-                            android:textAppearance="?attr/textAppearanceBody2"
-                            android:textColor="?android:attr/textColorSecondary" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="LastName"
-                            android:layout_weight="1"
-                            android:textSize="10dp"
-                            android:gravity="right"
-                            android:layout_marginLeft="5dp"
-                            android:id="@+id/lastname"
-                            android:textAppearance="?attr/textAppearanceBody2"
-                            android:textColor="?android:attr/textColorSecondary" />
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:alpha="0.7">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/upvote"
+                                android:id="@+id/upvote_image"
+                                />
+                            <TextView
+                                android:id="@+id/qUpText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_toRightOf="@+id/upvote_imageimage"
+                                android:layout_marginTop="5dp"
+                                android:text="2"
+                                android:textSize="8dp"
+                                android:textColor="@color/colorPrimary"
+                                />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/downvotw"
+                                android:id="@+id/down_image"
+                                android:layout_marginLeft="10dp"
+                                />
+                            <TextView
+                                android:id="@+id/qDowntext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_toRightOf="@+id/down_image"
+                                android:layout_marginTop="5dp"
+                                android:text="10"
+                                android:textSize="8dp"
+                                android:textColor="@color/errorColor"
+                                />
+                        </LinearLayout>
+
                     </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Datecreated"
-                        android:layout_weight="1"
-                        android:textSize="10dp"
-                        android:gravity="right"
-                        android:layout_marginLeft="5dp"
-                        android:id="@+id/datecreated"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="?android:attr/textColorSecondary" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LastName"
-                        android:layout_weight="1"
-                        android:textSize="10dp"
-                        android:gravity="right"
-                        android:layout_marginLeft="5dp"
-                        android:id="@+id/dateupdated"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="?android:attr/textColorSecondary" />
-                    <!-- Title, secondary and supporting text -->
-                    <TextView
-                        android:id="@+id/question"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Question"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        android:textSize="15dp" />
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/img1"
-                        android:src="@mipmap/ic_launcher"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/img2"
-                            android:src="@mipmap/ic_launcher"
-                            android:layout_gravity="right"
-                            android:layout_marginLeft="10dp"
-                            />
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/img3"
-                            android:src="@mipmap/ic_launcher"
-                            android:layout_gravity="right"
-                            android:layout_marginLeft="10dp"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/img4"
-                            android:src="@mipmap/ic_launcher"
-                            android:layout_gravity="right"
-                            android:layout_marginLeft="10dp"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/img5"
-                            android:src="@mipmap/ic_launcher"
-                            android:layout_gravity="right"
-                            android:layout_marginLeft="10dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <!-- Buttons -->
-                <LinearLayout
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/notAnswered"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_marginTop="0dp"
-                    android:orientation="horizontal"
-                    android:alpha="0.7">
+                    android:layout_gravity="center_horizontal"
+                    android:text="This question has not been answered yet!"
+                    android:layout_marginVertical="50dp"
+                    android:drawableTop="@drawable/ic_baseline_error_outline_24"
+                    style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+                    android:layout_marginHorizontal="50dp"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/upvote"
-                        android:id="@+id/upvote_image"
-                        />
-                    <TextView
-                        android:id="@+id/uptext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_toRightOf="@+id/upvote_imageimage"
-                        android:layout_marginTop="5dp"
-                        android:text="2"
-                        android:textSize="8dp"
-                        android:textColor="@color/colorPrimary"
-                        />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/downvotw"
-                        android:id="@+id/down_image"
-                        android:layout_marginLeft="10dp"
-                        />
-                    <TextView
-                        android:id="@+id/downtext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_toRightOf="@+id/down_image"
-                        android:layout_marginTop="5dp"
-                        android:text="10"
-                        android:textSize="8dp"
-                        android:textColor="@color/errorColor"
-                        />
-                </LinearLayout>
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp">
+                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="2dp">
-        </androidx.recyclerview.widget.RecyclerView>
+        </ScrollView>
     </LinearLayout>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/addAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="30dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:text="ADD ANSWER"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
+        android:drawableLeft="@drawable/ic_baseline_add_24"
+        android:drawableTint="#FFFFFF"
+        />
     <include layout="@layout/overlayloading"/>
 </FrameLayout>

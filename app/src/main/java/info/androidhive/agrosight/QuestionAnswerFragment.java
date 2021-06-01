@@ -150,10 +150,11 @@ public class QuestionAnswerFragment extends Fragment {
                                     ob.getInt("id"),
                                     ob.getString("title"),
                                     ob.getString("question"),
-                            ob.getString("f_name"),
-                            ob.getString("l_name"),
-                            ob.getInt("upvotes"),
-                            ob.getInt("downvotes")
+                                    ob.getString("f_name"),
+                                    ob.getString("l_name"),
+                                    ob.getInt("upvotes"),
+                                    ob.getInt("downvotes"),
+                                    ob.getInt("u_id")
                              );
                             questionsList.add(quee);
 
@@ -204,4 +205,6 @@ public class QuestionAnswerFragment extends Fragment {
     void hideLoading(){
         progressLayout.setVisibility(View.GONE);
     }
+
+
 }

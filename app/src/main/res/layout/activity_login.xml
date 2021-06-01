@@ -16,8 +16,9 @@
             android:textAlignment="center"
            android:textColor="#13C413"
             android:textSize="34dp"
+            android:layout_marginTop="50dp"
             tools:layout_editor_absoluteX="104dp"
-            tools:layout_editor_absoluteY="41dp"
+            tools:layout_editor_absoluteY="100dp"
             tools:ignore="MissingConstraints"
             android:gravity="center_horizontal" />
 

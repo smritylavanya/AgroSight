@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PhotViewActivity">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/photViewToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:gravity="center_horizontal"
+        app:title="Preview"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:titleCentered="true">
+    </com.google.android.material.appbar.MaterialToolbar>
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/photoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:src="@drawable/ic_user"/>
+</LinearLayout>

@@ -23,6 +23,7 @@
                 android:paddingHorizontal="5dp"
                 android:src="@drawable/ic_user"/>
             <TextView
+                android:id="@+id/chatRecName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Full Name"

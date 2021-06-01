@@ -19,54 +19,40 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp">
                 <TextView
+                    android:id="@+id/answerCardFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Firstname"
+                    android:text="Full Name"
                     android:layout_weight="1"
-                    android:id="@+id/firstname"
-                    android:textSize="10dp"
-                    android:gravity="right"
+                    android:textSize="16sp"
+                    android:layout_marginVertical="5dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical|start"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
-                <TextView
+                    android:textColor="#474747"/>
+                <ImageButton
+                    android:id="@+id/messageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="LastName"
-                    android:layout_weight="1"
-                    android:textSize="10dp"
-                    android:gravity="right"
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/lastname"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
-            </LinearLayout>
+                    android:tint="#000000"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_baseline_message_24"
+                    android:backgroundTint="@android:color/transparent"/>
+            </FrameLayout>
             <!-- Title, secondary and supporting text -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dummy DDDDD dummy Dummy dummy Answer Dummy  Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy Dummy dummy"
-                android:textSize="15dp"
-                android:id="@+id/question"
-                android:fontFamily="sans-serif-black"
-                android:maxLines="3"
-
-                android:textAppearance="?attr/textAppearanceHeadline6"/>
-            <Button
-                android:id="@+id/btShowmore"
-                android:layout_width="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Showmore..."
-                android:layout_gravity="right|end"
-                android:textAllCaps="false"
-                android:textColor="@android:color/holo_blue_light"
-                android:background="@android:color/transparent"
-                android:layout_height="wrap_content" />
+                android:textSize="16dp"
+                android:textColor="#000000"
+                android:id="@+id/question"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -38,7 +38,7 @@ public class MessagesHome extends AppCompatActivity {
     int totalEntries;
     User user;
     RecyclerView recyclerView;
-    DialogAdapter dialogAdapter;
+    DialogAdapter dialogAdapter = null;
     List<DialogModel> dialogList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,23 @@ public class MessagesHome extends AppCompatActivity {
             }
         });
         getMetaData();
-
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (dialogAdapter != null){
+            dialogList.clear();
+            getMetaData();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dialogAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
     private void getMetaData(){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.URLs.getDialogMetaDataUrl, new Response.Listener<String>() {
             @Override
@@ -153,7 +168,6 @@ public class MessagesHome extends AppCompatActivity {
         };
         VolleySingleton.getInstance(getBaseContext()).addToRequestQueue(stringRequest);
     }
-
     private void renderList() {
         dialogAdapter = new DialogAdapter(MessagesHome.this, dialogList);
         recyclerView.setAdapter(dialogAdapter);

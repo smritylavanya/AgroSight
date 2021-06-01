@@ -9,6 +9,7 @@
     <color name="errorColor">#FF4343</color>
     <color name="hintColor">#707070</color>
     <color name="offWhite">#BDBDBD</color>
+    <color name="blue">#2196F3</color>
 
 
 </resources>
