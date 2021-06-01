@@ -28,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.tapadoo.alerter.Alerter;
@@ -60,6 +61,7 @@ public class PostQuestionActivity extends AppCompatActivity
     EditText qTitle;
     EditText qDescription;
     ImageButton addTagBtn;
+    MaterialToolbar toolbar;
     Button submitBtn;
     int imageNo = 1;
     List<String> tagList = new ArrayList<>();
@@ -74,6 +76,13 @@ public class PostQuestionActivity extends AppCompatActivity
         image3 = findViewById(R.id.image3);
         image4 = findViewById(R.id.image4);
         image5 = findViewById(R.id.image5);
+        toolbar=findViewById(R.id.postQuestion_toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         chipGroup = findViewById(R.id.postQuestionChipGroup);
         etTags = findViewById(R.id.tagEditText);
         addTagBtn = findViewById(R.id.addTagButton);

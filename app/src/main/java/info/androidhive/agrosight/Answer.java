@@ -66,12 +66,13 @@ class Answer{
     public int id;
     public int uid;
 
-    public Answer(int id,String answer,String firstname,String lastname, int upvote, int downvote) {
+    public Answer(int id,String answer,String firstname,String lastname, int upvote, int downvote, int uId) {
         this.id = id;
         this.answer= answer;
         this.firstname = firstname;
         this.lastname = lastname;
         this.upvote= upvote;
         this.downvote = downvote;
+        this.uid = uId;
     }
 }
