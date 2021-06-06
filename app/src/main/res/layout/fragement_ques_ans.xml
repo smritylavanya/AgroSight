@@ -41,6 +41,10 @@
                     android:src="@drawable/logo_png" />
             </FrameLayout>
         </com.google.android.material.appbar.MaterialToolbar>
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"

@@ -84,7 +84,7 @@
             app:layout_constraintTop_toTopOf="@+id/layout_profile"
             android:id="@+id/profile_image"
             android:background="@drawable/imagebackground"
-            android:src="@drawable/ic_launcher_foreground"
+            android:src="@drawable/ic_user"
 
             android:layout_height="90dp"
             android:layout_width="90dp"

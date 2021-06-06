@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,8 +64,9 @@ public class PostQuestionActivity extends AppCompatActivity
     EditText qDescription;
     ImageButton addTagBtn;
     MaterialToolbar toolbar;
-    Button submitBtn;
+    Button submitBtn = null;
     int imageNo = 1;
+    boolean submitted = false;
     List<String> tagList = new ArrayList<>();
     List<byte[]> imageByteList = new ArrayList<>();
     @Override
@@ -190,9 +193,23 @@ public class PostQuestionActivity extends AppCompatActivity
                 String resultResponse = new String(response.data);
                 try {
                     JSONObject result = new JSONObject(resultResponse);
-                    String qId = result.getString("q_id");
+                    int qId = result.getInt("q_id");
                     // TODO: Intent to question view page with question Id <qId>
-                    Toast.makeText(PostQuestionActivity.this, "Question Submitted", Toast.LENGTH_SHORT).show();
+                    Alerter.create(PostQuestionActivity.this)
+                            .setTitle("Success")
+                            .setText("Question submitted")
+                            .setIcon(R.drawable.ic_baseline_error_outline_24)
+                            .setBackgroundColorRes(R.color.alerter_default_success_background)
+                            .show();
+                    Intent i = new Intent(PostQuestionActivity.this, AnswerActivity.class);
+                    i.putExtra("id", qId);
+                    submitted = true;
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            startActivity(i);
+                        }
+                    }, 2000);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -294,5 +311,13 @@ public class PostQuestionActivity extends AppCompatActivity
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (submitted){
+            finish();
+        }
     }
 }

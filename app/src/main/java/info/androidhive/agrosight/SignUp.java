@@ -35,6 +35,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +43,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SignUp extends AppCompatActivity {
 
@@ -67,61 +70,33 @@ public class SignUp extends AppCompatActivity {
         btn_sign_up = (Button)findViewById(R.id.signup1);
         queue = Volley.newRequestQueue(this);
 
+//        first_name.setText("fname");
+//        last_name.setText("lname");
+//        phone_number.setText("8888888885");
+//        email.setText("user5@gmail.com");
+//        password.setText("demopassword");
+
         btn_sign_up.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                checkDataEntered();
+//                if (checkDataEntered()) return;
                 StringRequest postRequest = new StringRequest(Request.Method.POST, Config.URLs.registerUrl,
                         new Response.Listener<String>()
                         {
-
                             @Override
                             public void onResponse(String response) {
-                                // response
-
-                                //store it in shared preference
-
-                                try {
-                                    Log.i("response", response);
-                                    JSONObject json = new JSONObject(response);
-                                    String status =json.getString("status");
-                                    //String token = json.getString("token");
-                                    if(status.equals("200"))
-                                    {
-                                        Toast toast = Toast.makeText(getApplicationContext(),
-                                                "User  created",
-                                                Toast.LENGTH_SHORT);
-
-                                        toast.show();
-
-                                        Intent intent = new Intent(SignUp.this, MainActivity.class);
-                                        startActivity(intent);
+                                Alerter.create(SignUp.this)
+                                        .setTitle("Success")
+                                        .setText("Successfully Registered! Please Login to continue")
+                                        .setBackgroundColorRes(R.color.alerter_default_success_background)
+                                        .show();
+                                new Timer().schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        finish();
                                     }
-                                    else
-                                    {
-                                        Toast toast = Toast.makeText(getApplicationContext(),
-                                                "User not created",
-                                                Toast.LENGTH_SHORT);
-
-                                        toast.show();
-
-                                    }
-
-
-//                                    Log.d("token", token);
-//                                    sharedPreferences = getSharedPreferences("com.example.bookstore", Context.MODE_PRIVATE);
-//                                    sharedPreferences.edit().putString("token",token).apply();
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-
-                                //connect to home activity
-//                                Intent intent = new Intent (getApplicationContext(),MainActivity.class);
-//                                startActivity(intent);
-
+                                },4000);
                             }
                         },
                         new Response.ErrorListener()
@@ -130,14 +105,6 @@ public class SignUp extends AppCompatActivity {
                             public void onErrorResponse(VolleyError error) {
                                 String body = "Error Not encoded";
                                 System.out.println(error.toString());
-//                                if (error instanceof TimeoutError){
-//                                    //TODO:Network timeout error - SHOW ERROR AND RETURN
-//                                    Log.d("Timeout Error", error.toString());
-//                                    DialogBox exampleDialog = new DialogBox();
-//                                    exampleDialog.show(getSupportFragmentManager(), "example dialog");
-//                                    exampleDialog.createAlert( "Timeout Error");
-//                                    return;
-//                                }
                                 int statusCode;
                                 try {
                                     //get status code here
@@ -149,6 +116,7 @@ public class SignUp extends AppCompatActivity {
                                 }
                                 //get response body and parse with appropriate encoding
                                 if(error.networkResponse.data!=null) {
+                                    System.out.println(error.networkResponse.data);
                                     try {
                                         JSONObject errorJson = new JSONObject(new String(error.networkResponse.data,"UTF-8"));
                                         body = errorJson.toString(4);
@@ -167,6 +135,7 @@ public class SignUp extends AppCompatActivity {
                                     //TODO: Internal Server error - SHOW ERROR
                                     AlertBox.alertDialogShow(SignUp.this,"Internal Server Error");
                                 }
+                                AlertBox.alertDialogShow(SignUp.this,"Internal Server Error");
                             }
                         }
                 )
@@ -182,12 +151,12 @@ public class SignUp extends AppCompatActivity {
                         params.put("password", password.getText().toString());
                         return params;
                     }
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<String, String>();
-                        params.put("Content-Type","application/json");
-                        return params;
-                    }
+//                    @Override
+//                    public Map<String, String> getHeaders() throws AuthFailureError {
+//                        Map<String,String> params = new HashMap<String, String>();
+//                        params.put("Content-Type","application/json");
+//                        return params;
+//                    }
                 };
                 queue.add(postRequest);
                 //openlogin();
@@ -203,18 +172,23 @@ public class SignUp extends AppCompatActivity {
         CharSequence str=text.getText().toString();
         return TextUtils.isEmpty(str);
     }
-    void checkDataEntered(){
+    boolean checkDataEntered(){
         if (isEmpty(first_name)){
             Toast t=Toast.makeText(this, "This field cannot be empty!",Toast.LENGTH_SHORT);
             t.show();
+            return false;
         }
         if (isEmpty(last_name)){
             Toast t=Toast.makeText(this, "This field cannot be empty!",Toast.LENGTH_SHORT);
             t.show();
+            return false;
         }
         if (isEmail(email)==false){
             email.setError("Enter a valid Email");
+            email.requestFocus();
+            return false;
         }
+        return true;
     }
     public void openlogin()
     {
