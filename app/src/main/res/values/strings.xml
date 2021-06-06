@@ -6,4 +6,15 @@
     <string name="tab_text_3">Tab 3</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="example">Example</string>
+    <string name="l1">https://www.india.gov.in/topics/agriculture</string>
+    <string name="l2">https://agricoop.nic.in/</string>
+    <string name="l3">https://www.ibef.org/industry/agriculture-india.aspx</string>
+    <string name="l4">https://dst.gov.in/</string>
+    <string name="l5">http://dbtindia.gov.in/</string>
+    <string name="l6">https://finmin.nic.in/</string>
+    <string name="l7">https://pmkisan.gov.in/</string>
+    <string name="l8">https://www.agrikendra.com/</string>
+    <string name="l9">https://www.niehs.nih.gov/health/topics/agents/pesticides/index.cfm</string>
+    <string name="l10">https://farmer.gov.in/</string>
+
 </resources>

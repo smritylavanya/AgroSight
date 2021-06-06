@@ -19,5 +19,6 @@ public class Config {
         static String qaAttachmentsUrl = prefix+domain+"/qa/get-q-attachments/";
         static String addAnswerurl = prefix+domain+"/qa/add-answer";
         static String getAllMessagesUrl = prefix+domain+"/chat/get-all-messages/";
+        static String getQuestionsByTagUrl = prefix+domain+"/qa/get-questions-by-tag/";
     }
 }

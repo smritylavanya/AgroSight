@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,6 +72,30 @@ public class QuestionAnswerFragment extends Fragment {
         adapter = new QuestionAdapter(getActivity().getApplicationContext(),questionsList);
         progressLayout=view.findViewById(R.id.progress_overlay);
         toolbar = view.findViewById(R.id.qa_frag_toolbar);
+        SearchView searchView = view.findViewById(R.id.searchView);
+        searchView.setQueryHint("Search by tags...");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                System.out.println("seeThis:"+query);
+                getDataByTag(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            questionsList.clear();
+                            getData(1);
+                        }
+                    });
+                }
+                return false;
+            }
+        });
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +119,6 @@ public class QuestionAnswerFragment extends Fragment {
         toolbar.setNavigationIcon(navDraw);
         Drawable logo = ResourcesCompat.getDrawable(getResources(),R.drawable.logo_png, getActivity().getTheme());
 //        toolbar.setLogo(logo);
-
 
 //        toolbar.logo
         fab.setOnClickListener(new View.OnClickListener() {
@@ -130,8 +155,7 @@ public class QuestionAnswerFragment extends Fragment {
         Intent intent = new Intent(getActivity(), PostQuestionActivity.class);
         startActivity(intent);
     }
-    private void getData(int pnumber)
-    {
+    private void getData(int pnumber) {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
 //        progressDialog.setMessage("Loading...");
 //        progressDialog.show();
@@ -192,6 +216,78 @@ public class QuestionAnswerFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(jsonArrayRequest);
     }
+    private void getDataByTag(String tag) {
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+//        progressDialog.setMessage("Loading...");
+//        progressDialog.show();
+        showLoading();
+        questionsList.clear();
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
+        StringRequest jsonArrayRequest = new StringRequest(Config.URLs.getQuestionsByTagUrl+tag, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONArray data = obj.getJSONArray("data");
+                    for (int i = 0; i < response.length(); i++) {
+
+                        JSONObject ob = data.getJSONObject(i);
+                        Questions quee = new Questions(
+                                ob.getInt("id"),
+                                ob.getString("title"),
+                                ob.getString("question"),
+                                ob.getString("f_name"),
+                                ob.getString("l_name"),
+                                ob.getInt("upvotes"),
+                                ob.getInt("downvotes"),
+                                ob.getInt("u_id")
+                        );
+                        questionsList.add(quee);
+
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+//                        progressDialog.dismiss();
+                    hideLoading();
+                }
+                adapter.notifyDataSetChanged();
+//                progressDialog.dismiss();
+                hideLoading();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Alerter.create(getActivity())
+                        .setTitle("Error")
+                        .setText("No Entries found")
+                        .setIcon(R.drawable.ic_baseline_error_outline_24)
+                        .setBackgroundColorRes(R.color.errorColor)
+                        .show();
+                hideLoading();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                // Basic Authentication
+                //String auth = "Basic " + Base64.encodeToString(CONSUMER_KEY_AND_SECRET.getBytes(), Base64.NO_WRAP);
+                User u=new User(getContext());
+                headers.put("Authorization", "Bearer " + u.getToken());
+                return headers;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(jsonArrayRequest);
+    }
+
     static Drawable resize(Drawable image, double scaleFactor) {
         Bitmap b = ((BitmapDrawable)image).getBitmap();
         int dstW = (int)(b.getWidth()/scaleFactor);
